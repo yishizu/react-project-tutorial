@@ -27,7 +27,7 @@ function App() {
       
       setName("");
       setAge(0);
-      setList([...list, { name, age }]);
+      setList((previousList) => { return [...previousList, { name, age }] });
       setError(false);
     }
       
