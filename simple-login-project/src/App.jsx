@@ -19,7 +19,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(name, age);
+
     
     if(name.trim().length === 0 || age.length === 0){
       setError(true);
@@ -31,7 +31,7 @@ function App() {
       setList((previousList) => { return [...previousList, { name, age, id: uuidv4() }] });
       setError(false);
     }
-      
+      console.log(list);
     }
 
   return (
