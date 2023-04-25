@@ -8,6 +8,7 @@ import { Box, Card } from "@mui/material";
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [list, setList] = useState([]);
@@ -27,7 +28,7 @@ function App() {
       
       setName("");
       setAge(0);
-      setList((previousList) => { return [...previousList, { name, age }] });
+      setList((previousList) => { return [...previousList, { name, age, id: uuidv4() }] });
       setError(false);
     }
       
