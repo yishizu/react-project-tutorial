@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+const emailReducer = (state, action) => {
+    return {value: "", isValid: false};
+}
+
+
 const InputForm = ({name, age, onNameChange, onAgeChange,onSubmit}) => {
 
+
+    const [emailState, dispatchEmail] = useReducer(emailReducer, {value: "", isValid: false});
 
   return (
     <Box

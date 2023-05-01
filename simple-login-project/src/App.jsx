@@ -19,8 +19,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    
+ 
     if(name.trim().length === 0 || age.length === 0){
       setError(true);
     }
