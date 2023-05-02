@@ -40,7 +40,6 @@ function Appbar({ onClickCartBtn }) {
     setAnchorElUser(null);
   };
 
-
   const [springProps, setSpringProps] = useSpring(() => ({
     transform: "scale(1)",
     config: { mass: 1, tension: 200, friction: 10 },
@@ -55,8 +54,6 @@ function Appbar({ onClickCartBtn }) {
       clearTimeout(timer);
     };
   }, [cartContext.cartItemNum, setSpringProps]);
-
- 
 
   const cartItemNum = cartContext.cartItemNum;
 
@@ -184,7 +181,14 @@ function Appbar({ onClickCartBtn }) {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                }}
+              >
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
