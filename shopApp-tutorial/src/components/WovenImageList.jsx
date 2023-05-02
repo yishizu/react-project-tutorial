@@ -12,8 +12,8 @@ export default function WovenImageList() {
   const cols = matches ? 3 : 1;
 
   return (
+    
     <Container
-    paddingTop="64px"
       maxWidth="md"
       sx={{
         display: "flex",
