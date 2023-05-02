@@ -1,18 +1,10 @@
-import React, { useState } from "react";
+
 import { Box, Typography, Container} from "@mui/material";
 import DUMMY_MEALS from "./dummy-meals";
 import MealItem from "./MealItem";
 
-const AvailableMealList = () => {
-  const [cartItems, setCartItems] = useState([]);
-
-  const addToCart = (meal, quantity) => {
-    const updatedCartItems = [
-      ...cartItems,
-      { ...meal, quantity: Number(quantity) },
-    ];
-    setCartItems(updatedCartItems);
-  };
+const AvailableMealList = ({ addToCart }) => {
+  
 
   return (
 
@@ -25,13 +17,7 @@ const AvailableMealList = () => {
           <MealItem key={meal.id} meal={meal} onAddToCart={addToCart} />
         ))}
       </Box>
-      <ul>
-        {cartItems.map((item, index) => (
-          <li key={index}>
-            {item.name} - {item.quantity}
-          </li>
-        ))}
-      </ul>
+      
     </Container>
   );
 };

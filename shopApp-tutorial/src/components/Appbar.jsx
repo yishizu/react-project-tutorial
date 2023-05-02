@@ -18,7 +18,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Appbar() {
+function Appbar({onClickCartBtn, cartItems}) {
 
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -38,6 +38,8 @@ function Appbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const cartItemNum = cartItems.reduce((acc, item) => { return acc + item.quantity }, 0);
 
   return (
     <AppBar
@@ -152,8 +154,9 @@ function Appbar() {
               size="large"
               aria-label="4 items in the cart"
               color="inherit"
+              onClick={onClickCartBtn}
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={cartItemNum} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
