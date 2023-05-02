@@ -1,5 +1,6 @@
 // TotalCartModal.js
 import React from "react";
+import { useContext } from "react";
 import {
   Box,
   Typography,
@@ -15,7 +16,11 @@ import {
   Stack
 } from "@mui/material";
 
-const TotalCartModal = ({ isOpen, handleClose, cartItems }) => {
+import CartContext from "../../store/CartContext";
+
+const TotalCartModal = ({ isOpen, handleClose }) => {
+ const cartContext = useContext(CartContext);
+ const cartItems = cartContext.cartItems;
   const cartTotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0

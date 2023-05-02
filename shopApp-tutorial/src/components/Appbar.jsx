@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,13 +14,13 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CartContext from "../store/CartContext";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Appbar({onClickCartBtn, cartItems}) {
-
-
+function Appbar({ onClickCartBtn }) {
+  const cartContext = useContext(CartContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -39,7 +39,9 @@ function Appbar({onClickCartBtn, cartItems}) {
     setAnchorElUser(null);
   };
 
-  const cartItemNum = cartItems.reduce((acc, item) => { return acc + item.quantity }, 0);
+  const cartItemNum = cartContext.cartItems.reduce((acc, item) => {
+    return acc + item.quantity;
+  }, 0);
 
   return (
     <AppBar
@@ -108,7 +110,6 @@ function Appbar({onClickCartBtn, cartItems}) {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
-                
               }}
             >
               {pages.map((page) => (
@@ -142,7 +143,7 @@ function Appbar({onClickCartBtn, cartItems}) {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'inherit', display: "block"}}
+                sx={{ my: 2, color: "inherit", display: "block" }}
               >
                 {page}
               </Button>
