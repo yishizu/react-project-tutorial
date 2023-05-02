@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,6 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CartContext from "../store/CartContext";
+import { useSpring, animated } from "@react-spring/web";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -38,6 +39,24 @@ function Appbar({ onClickCartBtn }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+
+  const [springProps, setSpringProps] = useSpring(() => ({
+    transform: "scale(1)",
+    config: { mass: 1, tension: 200, friction: 10 },
+  }));
+
+  useEffect(() => {
+    setSpringProps({ transform: "scale(1.2)" });
+    const timer = setTimeout(() => {
+      setSpringProps({ transform: "scale(1)" });
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [cartContext.cartItemNum, setSpringProps]);
+
+ 
 
   const cartItemNum = cartContext.cartItemNum;
 
@@ -155,9 +174,11 @@ function Appbar({ onClickCartBtn }) {
               color="inherit"
               onClick={onClickCartBtn}
             >
-              <Badge badgeContent={cartItemNum} color="error">
-                <ShoppingCartIcon />
-              </Badge>
+              <animated.span style={springProps}>
+                <Badge badgeContent={cartItemNum} color="error">
+                  <ShoppingCartIcon />
+                </Badge>
+              </animated.span>
             </IconButton>
           </Box>
 
@@ -170,6 +191,7 @@ function Appbar({ onClickCartBtn }) {
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
+              Ï
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: "top",
