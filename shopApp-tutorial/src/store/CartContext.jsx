@@ -7,11 +7,15 @@ const CartContext = createContext({
   cartTotalCost: 0,
   addToCart: () => {},
   removeItemFromCart: () => {},
+  updateItemQuantityInCart: () => {}, 
 });
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
+  const removeItemFromCart = (itemId) => {
+    setCartItems((prevState) => prevState.filter((item) => item.id !== itemId));
+  };
   const addToCart = (meal, quantity) => {
     const existingItemIndex = cartItems.findIndex((item) => item.id === meal.id);
   
@@ -38,6 +42,15 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const updateItemQuantityInCart = (itemId, newQuantity) => { // 追加
+    setCartItems((prevCartItems) => {
+      return prevCartItems.map((item) =>
+        item.id === itemId ? { ...item, quantity: newQuantity } : item
+      );
+    });
+  };
+
+
   const cartTotalCost = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -47,7 +60,7 @@ export const CartProvider = ({ children }) => {
   }, 0);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart , cartTotalCost,cartItemNum}}>
+    <CartContext.Provider value={{ cartItems, addToCart , cartTotalCost,cartItemNum, removeItemFromCart, updateItemQuantityInCart}}>
       {children}
     </CartContext.Provider>
   );

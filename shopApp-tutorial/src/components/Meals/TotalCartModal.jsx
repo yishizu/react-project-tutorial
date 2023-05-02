@@ -13,16 +13,26 @@ import {
   TableRow,
   Paper,
   Button,
-  Stack
+  Stack,
+  IconButton,
+  TextField,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import CartContext from "../../store/CartContext";
 
 const TotalCartModal = ({ isOpen, handleClose }) => {
- const cartContext = useContext(CartContext);
- const cartItems = cartContext.cartItems;
- const cartTotal = cartContext.cartTotalCost;
-  
+  const cartContext = useContext(CartContext);
+  const cartItems = cartContext.cartItems;
+  const cartTotal = cartContext.cartTotalCost;
+
+  const handleDeleteItem = (itemId) => {
+    cartContext.removeItemFromCart(itemId);
+  };
+  const handleQuantityChange = (itemId, newQuantity) => {
+    cartContext.updateItemQuantityInCart(itemId, newQuantity);
+  };
+
   return (
     <Modal
       open={isOpen}
@@ -38,7 +48,8 @@ const TotalCartModal = ({ isOpen, handleClose }) => {
           transform: "translate(-50%, -50%)",
           width: "80%",
           bgcolor: "background.paper",
-          border: "2px solid #000",
+          border: "none", // アウトラインを削除
+          borderRadius: "16px", // 丸角を追加
           boxShadow: 24,
           p: 4,
         }}
@@ -51,9 +62,12 @@ const TotalCartModal = ({ isOpen, handleClose }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell align="right">Quantity</TableCell>
+                <TableCell sx={{ width: "80px" }} align="right">
+                  Quantity
+                </TableCell>
                 <TableCell align="right">Price</TableCell>
                 <TableCell align="right">Total</TableCell>
+                <TableCell  align="right"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -62,10 +76,31 @@ const TotalCartModal = ({ isOpen, handleClose }) => {
                   <TableCell component="th" scope="row">
                     {item.name}
                   </TableCell>
-                  <TableCell align="right">{item.quantity}</TableCell>
+                  <TableCell align="right">
+                    <TextField
+                      type="number"
+                      value={item.quantity}
+                      onChange={(event) =>
+                        handleQuantityChange(
+                          item.id,
+                          Number(event.target.value)
+                        )
+                      }
+                      inputProps={{ min: 1 }}
+                    />
+                  </TableCell>
                   <TableCell align="right">${item.price.toFixed(2)}</TableCell>
                   <TableCell align="right">
                     ${(item.price * item.quantity).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="center">
+                    <IconButton
+                      edge="end"
+                      color="inherit"
+                      onClick={() => handleDeleteItem(item.id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
