@@ -21,11 +21,8 @@ import CartContext from "../../store/CartContext";
 const TotalCartModal = ({ isOpen, handleClose }) => {
  const cartContext = useContext(CartContext);
  const cartItems = cartContext.cartItems;
-  const cartTotal = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-
+ const cartTotal = cartContext.cartTotalCost;
+  
   return (
     <Modal
       open={isOpen}

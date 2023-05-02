@@ -39,9 +39,7 @@ function Appbar({ onClickCartBtn }) {
     setAnchorElUser(null);
   };
 
-  const cartItemNum = cartContext.cartItems.reduce((acc, item) => {
-    return acc + item.quantity;
-  }, 0);
+  const cartItemNum = cartContext.cartItemNum;
 
   return (
     <AppBar
