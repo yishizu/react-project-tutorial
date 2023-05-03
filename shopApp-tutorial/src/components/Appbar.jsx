@@ -170,9 +170,19 @@ function Appbar({ onClickCartBtn }) {
               aria-label="4 items in the cart"
               color="inherit"
               onClick={onClickCartBtn}
+              
             >
               <animated.span style={springProps}>
-                <Badge badgeContent={cartItemNum} color="error">
+                <Badge
+                  badgeContent={cartItemNum}
+                  color="error"
+                  sx={{
+                    "& .MuiBadge-badge": {
+                      right: 6,
+                      top: 6,
+                    },
+                  }}
+                >
                   <ShoppingCartIcon />
                 </Badge>
               </animated.span>
@@ -181,14 +191,7 @@ function Appbar({ onClickCartBtn }) {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton
-                onClick={handleOpenUserMenu}
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                  },
-                }}
-              >
+              <IconButton onClick={handleOpenUserMenu}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
