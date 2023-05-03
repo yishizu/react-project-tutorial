@@ -198,7 +198,6 @@ function Appbar({ onClickCartBtn }) {
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
-              Ï
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: "top",
